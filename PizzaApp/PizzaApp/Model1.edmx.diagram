@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4e4a92c49d4b4cfe95487d97b6148f43" Name="Diagram1">
+        <EntityTypeShape EntityType="PizzaTestModel.Cart" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaTestModel.Categories" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaTestModel.OrderItem" Width="1.5" PointX="10.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaTestModel.Orders" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaTestModel.Products" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaTestModel.Roles" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaTestModel.Statuses" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaTestModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaTestModel.Users" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="PizzaTestModel.FK__Cart__id_tov__18B6AB08" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaTestModel.FK__Cart__id_user__19AACF41" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaTestModel.FK__Products__catego__0A688BB1" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaTestModel.FK__OrderItem__id_to__1C873BEC" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaTestModel.FK__OrderItem__id_za__1D7B6025" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaTestModel.FK__Orders__id_user__15DA3E5D" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaTestModel.FK__Orders__stat__14E61A24" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaTestModel.FK__Users__role__1209AD79" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

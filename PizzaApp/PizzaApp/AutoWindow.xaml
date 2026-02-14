@@ -1,0 +1,71 @@
+﻿<Window x:Class="PizzaApp.AutoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PizzaApp"
+        mc:Ignorable="d"
+        Title="AutoWindow" Height="600" Width="600">
+    <Grid>
+        <DockPanel Background="#FF3C3C3C" Height="60" VerticalAlignment="Top">
+            <TextBlock Text="🍕 Pizza Time" 
+               Foreground="White" FontSize="22" FontWeight="Bold"
+               Margin="20,0,0,0" VerticalAlignment="Center"/>
+        </DockPanel>
+   
+        <DockPanel VerticalAlignment="Top"  Margin="0,100,0,0">
+            <StackPanel Orientation="Vertical">
+                <Label Name="StatusLB" Content="1231" HorizontalAlignment="Center" FontSize="20"/>
+                <Label Foreground="Red" Name="FeedBackLB" Visibility="Hidden" Content="1231" HorizontalAlignment="Center" FontSize="15"/>
+                <Label  Visibility="Collapsed" Name="NameLB" HorizontalAlignment="Center" Content="Ваше имя"/>
+                <TextBox Visibility="Collapsed" Name="NameTB" Width="396" Height="24"></TextBox>
+                <Label HorizontalAlignment="Center" Content="Почта"/>
+                <TextBox Name="MailTB" Width="396" Height="24"></TextBox>
+                <Label HorizontalAlignment="Center" Content="Пароль"/>
+                <PasswordBox Name="PassTB" PasswordChar="*" Width="396" Height="24"></PasswordBox>
+                <Label Visibility="Collapsed" Name="PassRepeatLB" HorizontalAlignment="Center" Content="Повтор пароля"/>
+                <PasswordBox Visibility="Collapsed" PasswordChar="*" Name="PassRepeatTB" Width="396" Height="24"></PasswordBox>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <Button Name="SwitchBT" Height="25" Width="100" Margin="60, 10, 60, 0" Click="SwitchBT_Click"/>
+                    <Button Name="ConnectBT" Height="25" Width="100" Margin="60, 10, 60, 0" Click="ConnectBT_Click"/>
+                </StackPanel>
+            </StackPanel>
+            
+        </DockPanel>
+
+    </Grid>
+    
+    <Window.Resources>
+        <Style x:Key="CategoryButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10,0"/>
+            <Setter Property="Padding" Value="15,5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="#FFF1F1F1"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="BorderBrush" Value="#DDD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            CornerRadius="20"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF3C3C3C"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DropShadowEffect x:Key="CardShadow" BlurRadius="6" ShadowDepth="2" Opacity="0.25"/>
+    </Window.Resources>
+</Window>

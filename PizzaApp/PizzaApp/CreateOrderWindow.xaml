@@ -1,0 +1,116 @@
+﻿<Window x:Class="PizzaApp.CreateOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PizzaApp"
+        mc:Ignorable="d"
+        Title="CreateOrderWindow" Height="490" Width="706">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Данные клиента -->
+        <Border Grid.Row="0" Padding="15" Background="White" CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="Имя клиента" FontWeight="SemiBold"/>
+                    <TextBox x:Name="NameTb" Height="30"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Email (если есть)" FontWeight="SemiBold"/>
+                    <TextBox x:Name="EmailTb" Height="30"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Основная часть -->
+        <Grid Grid.Row="1" Margin="0,20,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Выбор товара -->
+            <Border Padding="15" Background="White" CornerRadius="10">
+                <StackPanel>
+                    <TextBlock Text="Добавить товар" FontSize="16" FontWeight="Bold"/>
+
+                    <ComboBox x:Name="ProductsCb"
+                              Margin="0,10,0,0"
+                              DisplayMemberPath="name"/>
+
+                    <Button Content="Добавить"
+                            Margin="0,10,0,0"
+                            Height="35"
+                            Background="#FF3C3C3C"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="AddProduct_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Позиции заказа -->
+            <Border Grid.Column="1"
+                    Margin="20,0,0,0"
+                    Padding="15"
+                    Background="White"
+                    CornerRadius="10">
+
+                <DataGrid x:Name="OrderItemsGrid"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          HeadersVisibility="Column" ItemsSource="{Binding DraftItems}">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Товар"
+                                            Binding="{Binding Name}"
+                                            Width="*"/>
+
+                        <DataGridTextColumn Header="Кол-во"
+                                            Binding="{Binding Quantity}"
+                                            Width="80"/>
+
+                        <DataGridTextColumn Header="Цена"
+                                            Binding="{Binding Price}"
+                                            Width="100"/>
+
+                        <DataGridTextColumn Header="Сумма"
+                                            Binding="{Binding Total}"
+                                            Width="100"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </Border>
+        </Grid>
+
+        <!-- Итог -->
+        <Border Grid.Row="2" Padding="15" Background="White" CornerRadius="10">
+            <DockPanel>
+                <TextBlock Text="{Binding TotalPrice, StringFormat=Итого: {0} ₽}"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           DockPanel.Dock="Left"/>
+
+                <Button Content="Завершить заказ"
+                        Width="180"
+                        Height="40"
+                        Background="#FF3C3C3C"
+                        Foreground="White"
+                        BorderThickness="0"
+                        DockPanel.Dock="Right"
+                        Click="FinishOrder_Click"/>
+            </DockPanel>
+        </Border>
+
+    </Grid>
+</Window>

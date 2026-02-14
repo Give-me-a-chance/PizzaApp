@@ -1,0 +1,191 @@
+﻿<Window x:Class="PizzaApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PizzaTime" Height="1000" Width="1000"
+        Background="#FFFAFAFA"
+        WindowStartupLocation="CenterScreen"
+        xmlns:local="clr-namespace:PizzaApp">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <!-- Шапка -->
+            <DockPanel Grid.Row="0" Grid.Column="0" Background="#FF3C3C3C" >
+                <TextBlock Text="🍕 Pizza Time" 
+                   Foreground="White" FontSize="22" FontWeight="Bold"
+                   Margin="20,0,0,0" VerticalAlignment="Center"/>
+                <Button Content="История" Width="100" HorizontalAlignment="Right" Margin="10" Click="HistoryBt_Click" Background="#FF252525" Foreground="White" FontSize="20" BorderThickness="0"/>
+            </DockPanel>
+            
+                <!-- Актуальный заказ ? -->
+                <StackPanel Grid.Row="1" Grid.Column="0" x:Name="OrderStatusPanel" Visibility="Visible" Orientation="Horizontal" HorizontalAlignment="Center">
+                <ItemsControl ItemsSource="{Binding ActiveOrders}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="5" Padding="5" Background="#EEE" BorderBrush="LightBlue">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="18" Text="{Binding Id, StringFormat=Заказ №{0}}" />
+                                    <TextBlock Text="{Binding Status}" Margin="10,0,0,0" FontSize="18" FontWeight="Bold" Foreground="{Binding BrushStatus}"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+            
+
+
+            <DockPanel Grid.Row="2" Grid.Column="0">
+
+
+                <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal" 
+                        HorizontalAlignment="Center"  Margin="0,10,0,10" >
+                    <Button Content="Пиццы" Height="30" FontSize="20" BorderThickness="0,0,0,0" Background="White" Margin="10, 0,10,0"  Click="Category_Click" Tag="Пиццы"/>
+                    <Button Content="Холодные напитки" Height="30" FontSize="20" BorderThickness="0,0,0,0" Background="White" Margin="10, 0,10,0" Click="Category_Click" Tag="Холодные напитки"/>
+                    <Button Content="Горячие напитки" Height="30" FontSize="20" BorderThickness="0,0,0,0" Background="White" Margin="10, 0,10,0" Click="Category_Click" Tag="Горячие напитки"/>
+                </StackPanel>
+
+
+                <ScrollViewer x:Name="MainScrollViewer" VerticalScrollBarVisibility="Auto">
+                    
+                    <StackPanel Margin="50, 0, 0, 0">
+                        <ItemsControl x:Name="CategoriesList" ItemsSource="{Binding}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,10,0,20" Tag="{Binding}" Loaded="CategoryPanel_Loaded">
+
+                                        <TextBlock Text="{Binding CategoryName}"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Margin="10,0,0,10"/>
+
+
+                                        <ItemsControl ItemsSource="{Binding Products}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Width="200" Height="350" CornerRadius="10" Margin="10"
+                                        Background="White" BorderBrush="#DDD" BorderThickness="1"
+                                        Effect="{DynamicResource CardShadow}">
+                                                        <StackPanel>
+                                                            <Image Source="{Binding img}" Height="200" Stretch="UniformToFill"/>
+                                                            <StackPanel  Margin="10">
+                                                                <TextBlock Text="{Binding name}" 
+                                                       FontWeight="Bold" FontSize="16"
+                                                       TextTrimming="CharacterEllipsis" />
+                                                                <TextBlock Text="{Binding descr}" 
+                                                       FontSize="13" Foreground="Gray"
+                                                       TextWrapping="Wrap" Height="50"/>
+                                                                <TextBlock Text="{Binding price, StringFormat={}{0} ₽}" 
+                                                       FontWeight="SemiBold" FontSize="15"
+                                                       Margin="0,5,0,0"/>
+                                                                <Button Content="Добавить" 
+                                                    HorizontalAlignment="Right"
+                                                    Padding="10,3"
+                                                    Margin="0,10,0,0"
+                                                    Background="#FF3C3C3C"
+                                                    Foreground="White"
+                                                    BorderThickness="0"
+                                                    Cursor="Hand"
+                                                    Click="AddToCart_Click"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+
+            <DockPanel Grid.Row="3" Grid.Column="0">
+
+                <Button Margin="0,5,10,5" HorizontalAlignment="Right" Width="150" Height="50" Background="#FF3C3C3C" Cursor="Hand" Click="CartBt_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/img/cart.png" 
+                        Width="50" />
+                        <TextBlock Name="CartTb" Text="0 ₽" FontSize="20" Foreground="White" 
+                            VerticalAlignment="Center" 
+                            Margin="5"/>
+                    </StackPanel>
+                </Button>
+
+
+
+            </DockPanel>
+
+            
+
+        </Grid>
+        
+        <Border x:Name="Overlay" 
+                Grid.Column="0"
+                Background="Black" 
+                Opacity="0.5" 
+                Visibility="Collapsed"
+                MouseDown="Overlay_MouseDown" />
+        
+        <local:CartView Visibility="Collapsed" x:Name="CartView" VerticalAlignment="Bottom" Height="500"/>
+
+        <local:HistoryView Visibility="Collapsed" x:Name="HistoryView" HorizontalAlignment="Right" Width="300"/>
+
+    </Grid>
+
+
+
+    <Window.Resources>
+        
+        
+        <Style x:Key="CategoryButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10,0"/>
+            <Setter Property="Padding" Value="15,5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="#FFF1F1F1"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="BorderBrush" Value="#DDD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF3C3C3C"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <DropShadowEffect x:Key="CardShadow" BlurRadius="6" ShadowDepth="2" Opacity="0.25"/>
+    </Window.Resources>
+</Window>
